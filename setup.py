@@ -11,14 +11,14 @@ setup(
         "celery-redis-cluster>=0.1.6",
     ],
     extras_require={
-        'dev': [
-            'pytest>=6.0.0',
+        "dev": [
+            "pytest>=6.0.0",
         ],
     },
     entry_points={
-        'celery.result_backends': [
-            'redispoll = celery_redis_poll.backend:PollingRedisBackend',
-            'redisclusterpoll = celery_redis_poll.backend:PollingRedisClusterBackend',
+        "celery.result_backends": [
+            "redispoll = celery_redis_poll.backend:PollingRedisBackend",
+            "redisclusterpoll = celery_redis_poll.backend:PollingRedisClusterBackend",
         ],
     },
     author="Lev Neiman",
