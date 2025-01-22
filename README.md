@@ -43,23 +43,6 @@ app = Celery('your_app',
 
 For clustered Redis, use `redisclusterpoll` instead of `redispoll`.
 
-
-### Configuration Options
-
-```python
-app.conf.update(
-    # How often to poll for results (in seconds)
-    redis_poll_interval=0.5,
-    
-    # Maximum time to poll for a result (in seconds)
-    redis_poll_timeout=3600,
-    
-    # Standard Redis options are also supported
-    redis_socket_timeout=30.0,
-    redis_socket_connect_timeout=30.0,
-)
-```
-
 ## Requirements
 
 - Python >= 3.7
