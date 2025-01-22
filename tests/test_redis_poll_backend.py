@@ -6,7 +6,7 @@ from pytest import mark
 import pytest
 
 
-from celery_redis_poll import (
+from celery_redis_poll_backend import (
     PollingRedisBackend,
     PollingRedisClusterBackend,
     install_redis_poll_backend,

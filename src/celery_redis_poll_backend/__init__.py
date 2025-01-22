@@ -1,6 +1,9 @@
-__version__ = "0.1.5"
+__version__ = "0.1.6"
 
-from celery_redis_poll.backend import PollingRedisBackend, PollingRedisClusterBackend
+from celery_redis_poll_backend.backend import (
+    PollingRedisBackend,
+    PollingRedisClusterBackend,
+)
 
 
 def install_redis_poll_backend():
