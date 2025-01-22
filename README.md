@@ -34,10 +34,18 @@ Configure your Celery application to use the polling backend:
 ```python
 from celery import Celery
 
+from celery_redis_poll import install_redis_poll_backend
+
+# Registers the polling backend
+install_redis_poll_backend()
+
 app = Celery('your_app',
              broker='redis://localhost:6379/0',
-             backend='redis+poll://localhost:6379/0')
+             backend='redispoll://localhost:6379/0')
 ```
+
+For clustered Redis, use `redisclusterpoll` instead of `redispoll`.
+
 
 ### Configuration Options
 
