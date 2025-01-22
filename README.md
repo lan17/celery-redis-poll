@@ -6,10 +6,8 @@ A specialized Redis backend for Celery that replaces the default pub/sub mechani
 
 The default Celery Redis backend uses Redis pub/sub for real-time task result notifications. While pub/sub provides immediate updates, it can face challenges in certain scenarios:
 
-- High memory usage in Redis due to pub/sub channel maintenance
-- Connection stability issues in distributed environments
-- Potential message loss during network interruptions
-- Scaling limitations with large numbers of subscribers
+- Deadlocks in highly concurrent/multi-threaded workloads due to single-threaded nature of Redis and Celery clients.
+- Higher overhead with `SUBSCRIBE` channels.
 
 This backend provides a more robust alternative by using a polling mechanism instead.
 
@@ -19,7 +17,6 @@ This backend provides a more robust alternative by using a polling mechanism ins
 - **Compatible with Existing Code**: Drop-in replacement for the standard Redis backend
 - **Configurable Polling**: Adjust polling intervals and timeouts to match your needs
 - **Resource Efficient**: Reduces Redis memory usage by eliminating pub/sub channels
-- **Network Friendly**: Better handles network interruptions and reconnections
 
 ## Installation
 
