@@ -1,4 +1,4 @@
-__version__ = "0.1.4"
+__version__ = "0.1.5"
 
 from celery_redis_poll.backend import PollingRedisBackend, PollingRedisClusterBackend
 
