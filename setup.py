@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="celery-redis-poll",
-    version="0.1.2",
+    version="0.1.4",
     packages=find_packages(where="src"),
     package_dir={"": "src"},
     install_requires=[
@@ -15,9 +15,15 @@ setup(
             'pytest>=6.0.0',
         ],
     },
+    entry_points={
+        'celery.result_backends': [
+            'redispoll = celery_redis_poll.backend:PollingRedisBackend',
+            'redisclusterpoll = celery_redis_poll.backend:PollingRedisClusterBackend',
+        ],
+    },
     author="Lev Neiman",
     author_email="lev.neiman@gmail.com",
-    description="A Redis Backend for Celery with Polling",
+    description="A Redis Backend for Celery with polling instead of pub/sub",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
     url="https://github.com/lan17/celery-redis-poll",

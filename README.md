@@ -13,7 +13,7 @@ This backend provides a more robust alternative by using a polling mechanism ins
 
 ## Features
 
-- **Polling-Based Results**: Replaces pub/sub with an efficient polling mechanism for task result retrieval
+- **Polling-Based Results**: Replaces pub/sub with a polling mechanism for task result retrieval
 - **Compatible with Existing Code**: Drop-in replacement for the standard Redis backend
 - **Configurable Polling**: Adjust polling intervals and timeouts to match your needs
 - **Resource Efficient**: Reduces Redis memory usage by eliminating pub/sub channels
@@ -30,11 +30,6 @@ Configure your Celery application to use the polling backend:
 
 ```python
 from celery import Celery
-
-from celery_redis_poll import install_redis_poll_backend
-
-# Registers the polling backend
-install_redis_poll_backend()
 
 app = Celery('your_app',
              broker='redis://localhost:6379/0',

@@ -1,17 +1,19 @@
 from typing import Type
 from celery import Celery
+from celery.backends.redis import RedisBackend
+from celery_redis_cluster_backend import RedisClusterBackend
 
 from pytest import mark
 import pytest
 
 
-from celery_redis_poll import install_redis_poll_backend, PollingRedisBackend, PollingRedisClusterBackend
+from celery_redis_poll import PollingRedisBackend, PollingRedisClusterBackend, install_redis_poll_backend
 
 
 @mark.parametrize("protocol, expected_backend", [
+    ("redis", RedisBackend),
     ("redispoll", PollingRedisBackend),
     ("redisclusterpoll", PollingRedisClusterBackend),
-    ("redisspoll", PollingRedisBackend),
 ])
 def test_redis_cluster_backend_installation(
     protocol: str, expected_backend: Type,

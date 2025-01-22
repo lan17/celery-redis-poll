@@ -1,9 +1,10 @@
 from celery.backends.redis import RedisBackend
 from typing import Any, Optional
+import celery
 from celery_redis_cluster_backend import RedisClusterBackend
 
 
-class PollingRedisBackend(RedisBackend):
+class PollingRedisBackend(celery.backends.base.SyncBackendMixin, RedisBackend):
     """
     Disables pub/sub for getting task results and instead uses polling.
     """
@@ -21,28 +22,6 @@ class PollingRedisBackend(RedisBackend):
 
     def on_task_call(self, *args: Any, **kwargs: Any) -> None:
         pass
-
-    def wait_for_pending(
-        self, result_ids: list[str], timeout: Optional[int] = None, interval: float = 0.5, no_ack: bool = True
-    ) -> list[dict]:
-        """
-        Overrides wait_for_pending to use polling instead of Pub/Sub.
-        """
-        # Poll Redis for results using pipeline
-        start_time = self.app.now()
-        while True:
-            pipeline = self.client.pipeline()
-            for task_id in result_ids:
-                pipeline.get(self.get_key_for_task(task_id))
-            results = pipeline.execute()
-
-            if all(results):
-                return [self.meta_from_decoded(self.decode_result(result)) for result in results]
-
-            if timeout and (self.app.now() - start_time).total_seconds() >= timeout:
-                raise TimeoutError("Timeout while waiting for task results.")
-
-            self.app.sleep(interval)
 
 
 class PollingRedisClusterBackend(PollingRedisBackend, RedisClusterBackend):
