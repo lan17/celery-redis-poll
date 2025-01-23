@@ -17,8 +17,11 @@ from celery_redis_poll_backend import (
     "protocol, expected_backend",
     [
         ("redis", RedisBackend),
-        ("redispoll", PollingRedisBackend),
-        ("redisclusterpoll", PollingRedisClusterBackend),
+        ("rediss", RedisBackend),
+        ("redis+poll", PollingRedisBackend),
+        ("rediss+poll", PollingRedisBackend),
+        ("redis+cluster_poll", PollingRedisClusterBackend),
+        ("rediss+cluster_poll", PollingRedisClusterBackend),
     ],
 )
 def test_redis_cluster_backend_installation(
@@ -28,10 +31,11 @@ def test_redis_cluster_backend_installation(
     install_redis_poll_backend()
 
     # Initialize Celery app with RedisClusterBackend
+    options = "?ssl_cert_reqs=CERT_NONE" if "rediss" in protocol else ""
     app = Celery(
         "test_app",
         broker="redis://localhost:6379/0",
-        backend=f"{protocol}://localhost:6379/0",
+        backend=f"{protocol}://localhost:6379{options}",
     )
 
     # Check if the backend is set correctly

@@ -24,6 +24,12 @@ This backend provides a more robust alternative by using a polling mechanism ins
 pip install celery-redis-poll
 ```
 
+After installation new backends are automatically registered with Celery:
+- `redis+poll`
+- `rediss+poll`
+- `redis+cluster_poll`
+- `rediss+cluster_poll`
+
 ## Usage
 
 Configure your Celery application to use the polling backend:
@@ -33,10 +39,10 @@ from celery import Celery
 
 app = Celery('your_app',
              broker='redis://localhost:6379/0',
-             backend='redispoll://localhost:6379/0')
+             backend='redis+poll://localhost:6379/0')
 ```
 
-For clustered Redis, use `redisclusterpoll` instead of `redispoll`.
+For clustered Redis, use `redis+cluster_poll`.
 
 ## Requirements
 

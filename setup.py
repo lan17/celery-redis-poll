@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="celery-redis-poll",
-    version="0.1.6",
+    version="0.1.7",
     packages=find_packages(where="src"),
     package_dir={"": "src"},
     install_requires=[
@@ -17,8 +17,8 @@ setup(
     },
     entry_points={
         "celery.result_backends": [
-            "redispoll = celery_redis_poll_backend.backend:PollingRedisBackend",
-            "redisclusterpoll = celery_redis_poll_backend.backend:PollingRedisClusterBackend",
+            "redis = celery_redis_poll_backend.backend:choose_redis_backend",
+            "rediss = celery_redis_poll_backend.backend:choose_rediss_backend",
         ],
     },
     author="Lev Neiman",
