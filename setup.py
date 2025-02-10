@@ -2,13 +2,13 @@ from setuptools import setup, find_packages
 
 setup(
     name="celery-redis-poll",
-    version="0.1.7",
+    version="0.1.8",
     packages=find_packages(where="src"),
     package_dir={"": "src"},
     install_requires=[
         "celery>=5.3.0",
         "redis>=4.5.0",
-        "celery-redis-cluster>=0.1.6",
+        "celery-redis-cluster>=0.2.0",
     ],
     extras_require={
         "dev": [
