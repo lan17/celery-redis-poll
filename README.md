@@ -2,7 +2,7 @@
 
 A specialized Redis backend for Celery that disables the default pub/sub mechanism for task result retrieval.  
 
-This enabled polling based approach by simply calling `ready()` method on Celery's `AsyncResult`.
+This enables polling based approach by simply calling `ready()` method on Celery's `AsyncResult`.
 
 ## Why Polling Instead of Pub/Sub?
 
