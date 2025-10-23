@@ -1,6 +1,8 @@
 # Celery Redis Poll Backend
 
-A specialized Redis backend for Celery that replaces the default pub/sub mechanism for task result retrieval with a polling-based approach.
+A specialized Redis backend for Celery that disables the default pub/sub mechanism for task result retrieval.  
+
+This enabled polling based approach by simply calling `ready()` method on Celery's `AsyncResult`.
 
 ## Why Polling Instead of Pub/Sub?
 
@@ -9,13 +11,11 @@ The default Celery Redis backend uses Redis pub/sub for real-time task result no
 - Deadlocks in highly concurrent/multi-threaded workloads due to single-threaded nature of Redis and Celery clients.
 - Higher overhead with `SUBSCRIBE` channels.
 
-This backend provides a more robust alternative by using a polling mechanism instead.
+This backend replaces `SUBSCRIBE` based backend with simple setter.  This means that you need to check `ready() == True` when getting result.
 
 ## Features
 
-- **Polling-Based Results**: Replaces pub/sub with a polling mechanism for task result retrieval
 - **Compatible with Existing Code**: Drop-in replacement for the standard Redis backend
-- **Configurable Polling**: Adjust polling intervals and timeouts to match your needs
 - **Resource Efficient**: Reduces Redis memory usage by eliminating pub/sub channels
 
 ## Installation
